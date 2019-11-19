@@ -13,3 +13,19 @@
 	    + 而在Spring boot中只要引入spring boot相关的start pom.xml文件，spring boot会自动扫描相关相关jar包，
 	    + Spring boot根据路径下的spring.factories文件(此文件是一个配置文件)，定义需要引入的配置文件(Java配置文件)，
 	    + 配置文件(`@Configuration`)中定义了bean自动注入需要满足的条件，当条件满足时，bean会被自动注入，而不需要像Spring 4 手动去为需要注入的bean加注解配置和java配置）
+	    
+	    
+## Spring boot 工作原理
+1. `@SpringBootApplication`
+    - 是Spring boot定义的注解
+    - 是一个组合注解(`@Configuration`,`@EnableAutoConfiguration`, `@ComponentScan`)
+        + `@Configuration`  Spring 注解
+        + `@ComponentScan`  Spring注解
+        + `@EnableAutoConfiguration` Spring boot注解
+            ```
+            ...
+            @Import({AutoConfigurationImportSelector.class}) // 根据条件来选择需要导入的配置类
+            public @interface EnableAutoConfiguration {
+            ...
+            ```
+        
