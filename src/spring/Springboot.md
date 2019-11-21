@@ -17,9 +17,12 @@
 	    + 配置文件(`@Configuration`)中定义了bean自动注入需要满足的条件，当条件满足时，bean会被自动注入，而不需要像Spring 4 手动去为需要注入的bean加注解配置和java配置）
 	- 对功能的支持(如支持MongoDB), Spring boot和Spring4 的**做法有什么不同**？
 	    + 做法的不同：
-	        - Spring4 需要**手动注入**(注解配置/Java配置)功能需要的相关Bean(MongoTemplate),
-	        - Spring boot只需要**引入相关的jar/start pom文件**（通过自动配置了注入了MongoTemplate，不用要开发者去注入）。
-	    + 其他配置是一样的。
+	        - Spring4 需要**手动注入/配置**.
+	            + 手动注入(注解配置/Java配置)功能需要的相关Bean(MongoTemplate)
+	            + 添加`@EnableMongoRepositories`到 Java配置文件。
+	        - Spring boot只需要**引入相应的starter pom文件,<u>无需任何配置</u>**.
+	            + 通过自动配置了注入了MongoTemplate，自动配置了不用要开发者去注入。
+	            + 自动配置了`@EnableMongoRepositories`.
 	    + Spring boot没有通过新的技术实现来支持MongoDB。
 	    
 ## Spring boot 工作原理
