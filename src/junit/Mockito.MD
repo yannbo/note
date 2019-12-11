@@ -135,14 +135,14 @@
 7. **mock静态方法**: Mockito不支持mock静态方法, 整合PowerMock来支持mock静态方法.
     + Demo:
         ```
-          @PrepareForTest(CIClient.class)                                             /1, @PrepareForTest
-          public class BearerAuthorizationProviderTest extends PowerMockTestCase {    /2, extends PowerMockTestCase
-              @Mock                                                                   /3, add @Mock
-              CIClient ciClient;
+          @PrepareForTest(XXXClient.class)                                   /1, @PrepareForTest
+          public class XXXXAuthProviderTest extends PowerMockTestCase {      /2, extends PowerMockTestCase
+              @Mock                                                          /3, add @Mock
+              XXXClient client;
               @Test
               public void testGetAuthorization() throws Exception {
-                  PowerMockito.mockStatic(CIClient.class);                /4, mock对象的所有静态方法，即不设置预设静态方法放回null或基本类型。
-                  PowerMockito.when(CIClient.getInstance()).thenReturn(ciClient); /5, 必须用`PowerMockito.when`录制预期
+                  PowerMockito.mockStatic(XXXClient.class);                /4, mock对象的所有静态方法，即不设置预设静态方法放回null或基本类型。
+                  PowerMockito.when(XXXClient.getInstance()).thenReturn(client); /5, 必须用`PowerMockito.when`录制预期
               }
         ```
       
