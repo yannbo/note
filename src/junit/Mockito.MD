@@ -4,15 +4,15 @@
 0. Mock对象的方法：
     + 通过`mock()`方法. eg: `List mock = mock(List.class)`;
     + mock对象作为field，添加`@Mock`注释 && 调用`MockitoAnnotations.initMocks(this)`方法
-            ```
-                public class Test {
-                    @Mock                                      /1 添加@Mock
-                    TestObject object;
-                    @BeforeMethod
-                    public void beforeMethod() {
-                        MockitoAnnotations.initMocks(this);    /2 调用MockitoAnnotations.initMocks(this)方法
-                    }
-            ```
+        ```
+            public class Test {
+                @Mock                                      /1 添加@Mock
+                TestObject object;
+                @BeforeMethod
+                public void beforeMethod() {
+                    MockitoAnnotations.initMocks(this);    /2 调用MockitoAnnotations.initMocks(this)方法
+                }
+        ```
 1. 验证行为
 	```
 	    @Test
