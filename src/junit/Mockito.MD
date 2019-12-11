@@ -1,5 +1,18 @@
 ## Mockito 教程摘要
 [Refer](https://www.cnblogs.com/Ming8006/p/6297333.html)
+
+0. Mock对象的方法：
+    + 通过`mock()`方法. eg: `List mock = mock(List.class)`;
+    + mock对象作为field，添加`@Mock`注释 && 调用`MockitoAnnotations.initMocks(this)`方法
+            ```
+                public class Test {
+                    @Mock                                      /1 添加@Mock
+                    TestObject object;
+                    @BeforeMethod
+                    public void beforeMethod() {
+                        MockitoAnnotations.initMocks(this);    /2 调用MockitoAnnotations.initMocks(this)方法
+                    }
+            ```
 1. 验证行为
 	```
 	    @Test
@@ -60,9 +73,9 @@
 	    ```
 
 4. 用spy监控真实对象
-	+ Mock不是真实的对象，它只是用类型class创建了一个虚拟对象，对象的所有方法都被mock，并可以设置对象行为。
-	+ Spy是一个真实的对象，但它可以设置对象的行为.使用**doReturn-when**可以避免when-thenReturn调用真实对象api。
-	+ InjectMocks创建这个类对象并自动将标记@Mock,@Spy等注解的属性注入到这个对象。
+	+ Mock不是真实的对象，它只是用类型class创建了一个虚拟对象，*对象的所有方法都被mock*，并可以设置对象行为。(方法体不会被执行)
+	+ Spy是一个真实的对象，但它可以设置对象的行为.使用**doReturn-when**可以避免when-thenReturn调用真实对象api。(方法体会被执行)
+	+ InjectMocks创建这个类对象并自动将标记@Mock,@Spy等注解的属性注入到这个对象。(方法体会被执行)
 	```
 	@Test(expected = IndexOutOfBoundsException.class)
 	    public void spy_on_real_objects(){
@@ -119,7 +132,21 @@
     }
 ```
 
-7. Mockito如何实现Mock
+7. **mock静态方法**: Mockito不支持mock静态方法, 整合PowerMock来支持mock静态方法.
+    + Demo:
+        ```
+          @PrepareForTest(CIClient.class)                                             /1, @PrepareForTest
+          public class BearerAuthorizationProviderTest extends PowerMockTestCase {    /2, extends PowerMockTestCase
+              @Mock                                                                   /3, add @Mock
+              CIClient ciClient;
+              @Test
+              public void testGetAuthorization() throws Exception {
+                  PowerMockito.mockStatic(CIClient.class);                /4, mock对象的所有静态方法，即不设置预设静态方法放回null或基本类型。
+                  PowerMockito.when(CIClient.getInstance()).thenReturn(ciClient); /5, 必须用`PowerMockito.when`录制预期
+              }
+        ```
+      
+8. Mockito如何实现Mock
 	Mockito并不是创建一个真实的对象，而是模拟这个对象，他用简单的when(mock.method(params)).thenRetrun(result)语句设置mock对象的行为，如下语句：
 	```
 	// 设置mock对象的行为 － 当调用其get方法获取第0个元素时，返回"first"
