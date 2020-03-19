@@ -1,0 +1,7 @@
+1. File ->Settings-> Junit(Search) ->JUnit generator ->Properties-> Out Paths ->
+    + Old: ${SOURCEPATH}/${PACKAGE}/${FILENAME}
+    + New: **${SOURCEPATH}/../../test/java/${PACKAGE}/${FILENAME}**
+   
+2. File ->Settings-> Junit(Search) ->JUnit generator ->Junit 4->
+    + Old: package test.$entry.packageName; 
+    + New: package **$entry.packageName;**

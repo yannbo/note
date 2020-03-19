@@ -25,6 +25,10 @@
 	            + 自动配置了`@EnableMongoRepositories`.
 	    + Spring boot没有通过新的技术实现来支持MongoDB。
 	    
+## SpringCloud、SpringBoot 的区别？
+[doc](https://www.cnblogs.com/itmsbx/p/9692538.html)
++ Spring Cloud是一套**分布式服务治理的框架**,既然它是一套服务治理的框架，那么它本身不会提供具体功能性的操作，更专注于服务之间的通讯、熔断、监控等.
+	    
 ## Spring boot 工作原理
 1. `@SpringBootApplication`
     - 是Spring boot定义的注解
@@ -38,4 +42,6 @@
             public @interface EnableAutoConfiguration {
             ...
             ```
-        
+## Questions
+1.  既然`@Configuration`会被Spring扫描自动注册，为什么spring boot 要定义`spring.factories`把需要自动配置的配置类完整路径加进去？
+    - Spring boot 默认扫描当前项目`xxxApplication.class`所在目录以及其子目录下注解。
